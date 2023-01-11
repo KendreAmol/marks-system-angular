@@ -1,0 +1,108 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-header bg-primary text-white">REPORT CARD</h2>
+  </div>
+  <div class="card-body" style="font-family: Arial, Helvetica, sans-serif">
+    <h1><b>Sanjivan Vidylaya</b></h1>
+    <h3>PO Box 200, Panchgani, Maharashtra (India)</h3>
+    <h6>{{displayExamName}} PROGRESS CARD</h6>
+    <div class="float-right">
+      <h6>Report Date : {{today | date:'dd/MMM/yyyy'}}</h6>
+    </div>
+    <br />
+    <table class="table table-bordered">
+      <tr align="left">
+        <th>Name of the Student</th>
+        <td>{{reportResponce.StudentInfo.StudentName}}</td>
+        <th>Date of Birth</th>
+        <td>{{reportResponce.StudentInfo.DOB | date:'dd/MMM/yyyy'}}</td>
+      </tr>
+      <tr align="left">
+        <th>Father's Name</th>
+        <td>{{reportResponce.StudentInfo.FatherName}}</td>
+        <th>Mother's Name</th>
+        <td>{{reportResponce.StudentInfo.MotherName}}</td>
+      </tr>
+      <tr align="left">
+        <th>Class</th>
+        <td>{{reportResponce.StudentInfo.Class}}</td>
+        <th>Roll No</th>
+        <td>{{reportResponce.StudentInfo.RollNo}}</td>
+      </tr>
+    </table>
+
+    <br />
+    <div class="row">
+      <div class="col-md-8">
+        <table class="table table-bordered">
+          <thead align="left" class="thead-light">
+            <th>Subject Name</th>
+            <th>Total Mark</th>
+            <th>Passing Mark</th>
+            <th>Obtained Mark</th>
+          </thead>
+          <tbody>
+            <tr align="left" *ngFor="let marks of markOfTypeNumber">
+              <td>{{marks.SubjectName}}</td>
+              <td>{{marks.TotalMarks}}</td>
+              <td>{{marks.PassingMark}}</td>
+              <td [ngClass]="{ 'bg-danger text-white': marks.Result === 'FAIL' }">
+                {{marks.ObtainedMark}}
+                <span *ngIf="marks.Result === 'FAIL'" class="badge badge-info float-right">Poor</span>
+              </td>
+            </tr>
+            <tr align="left">
+              <th>Total</th>
+              <th>{{sumOfTotalMark}}</th>
+              <th>{{sumOfPassingMark}}</th>
+              <th>{{sumOfObtainedMark}}</th>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+      <div class="col-md-4">
+        <table class="table table-bordered">
+          <thead align="left" class="thead-light">
+            <th>Subject Name</th>
+            <th>Grade</th>
+          </thead>
+          <tbody>
+            <tr align="left" *ngFor="let marks of markOfTypeGrade">
+              <td>{{marks.SubjectName}}</td>
+              <td>{{marks.ObtainedMark}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+        <table *ngIf="showClassificationTable" class="table table-bordered">
+          <thead align="left" class="thead-light">
+            <th>Classifications</th>
+            <th>Percentage</th>
+          </thead>
+          <tbody>
+            <tr align="left" *ngFor="let c of classifications">
+              <td>{{c.Name}}</td>
+              <td>{{c.Value}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <br />
+    <table class="table table-bordered">
+      <tr align="left">
+        <th>Percentage</th>
+        <td>{{percentage | number : '1.2-2'}} %</td>
+        <th>Result</th>
+        <td>{{result === true ? 'FAIL' : 'PASS'}}</td>
+        <th>Class</th>
+        <td>{{classification}}</td>
+      </tr>
+    </table>
+
+    <button (click)="downloadProgressCard()" class="float-right btn btn-primary">Download Progress Card</button>
+  </div>
+</div>

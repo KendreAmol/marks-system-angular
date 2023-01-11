@@ -1,0 +1,224 @@
+<div class="card">
+  <h5 class="card-header bg-primary text-white">Student Registration</h5>
+  <div class="card-body">
+    <form [formGroup]="addStudentForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" [(ngModel)]="student.FirstName"
+              [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+              <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="middleName">Middle Name</label>
+            <input type="text" formControlName="middleName" class="form-control" [(ngModel)]="student.MiddleName" />
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" [(ngModel)]="student.LastName"
+              [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+              <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="rollNo">Roll No</label>
+            <input type="text" formControlName="rollNo" class="form-control" [(ngModel)]="student.RollNo" numbersOnly
+              [ngClass]="{ 'is-invalid': submitted && f.rollNo.errors }" />
+            <div *ngIf="submitted && f.rollNo.errors" class="invalid-feedback">
+              <div *ngIf="f.rollNo.errors.required">Roll No is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="motherName">Mother Name</label>
+                <input type="text" formControlName="motherName" class="form-control" [(ngModel)]="student.MotherName"
+                  [ngClass]="{ 'is-invalid': submitted && f.motherName.errors }" />
+                <div *ngIf="submitted && f.motherName.errors" class="invalid-feedback">
+                  <div *ngIf="f.motherName.errors.required">Mother Name is required</div>
+                </div>
+              </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select class="form-control" id="gender" formControlName="gender" [(ngModel)]="student.Gender"
+              [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+              <option *ngFor="let gender of student.Genders" [value]="gender.ID">{{gender.Name}}</option>
+            </select>
+            <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+              <div *ngIf="f.gender.errors.required">Gender is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="class">Class</label>
+            <select class="form-control" id="class" formControlName="class" [(ngModel)]="student.Class"
+              [ngClass]="{ 'is-invalid': submitted && f.class.errors }">
+              <option *ngFor="let class of student.Classes" [value]="class.ID">{{class.Name}}</option>
+            </select>
+            <div *ngIf="submitted && f.class.errors" class="invalid-feedback">
+              <div *ngIf="f.class.errors.required">Class is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="hobbies">Hobbies</label>
+            <ng-multiselect-dropdown [placeholder]="'select hobbies'" formControlName="hobbies"
+              [data]="student.HobbieOptions" [(ngModel)]="student.Hobbies" [settings]="dropdownSettings">
+            </ng-multiselect-dropdown>
+            <div *ngIf="submitted && f.hobbies.errors" class="invalid-feedback">
+              <div *ngIf="f.hobbies.errors.required">Hobbies are required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="dob">Date Of Birth</label>
+            <input type="text" formControlName="dob" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }"
+              class="form-control" #dp="bsDatepicker" bsDatepicker>
+            <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+              <div *ngIf="f.dob.errors.required">Date of birth is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea formControlName="address" [(ngModel)]="student.Address" class="form-control"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" formControlName="city" class="form-control" [(ngModel)]="student.City"
+              [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+            <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+              <div *ngIf="f.city.errors.required">City is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="pinCode">Pin Code</label>
+            <input type="text" formControlName="pinCode" class="form-control" [(ngModel)]="student.PinCode" numbersOnly
+              [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors }" />
+            <div *ngIf="submitted && f.pinCode.errors" class="invalid-feedback">
+              <div *ngIf="f.pinCode.errors.required">Pin Code is required</div>
+              <div *ngIf="f.pinCode.errors.minlength">Pincode must be at least 6 digit</div>
+              <div *ngIf="f.pinCode.errors.maxlength">Pincode should less than 6 digit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select class="form-control" id="country" formControlName="country" [(ngModel)]="student.Country"
+              (change)="onCountryChange($event.target.value)"
+              [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+              <option *ngFor="let country of student.Countries" [value]="country.ID">{{country.Name}}</option>
+            </select>
+            <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+              <div *ngIf="f.country.errors.required">Country is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="state">State</label>
+            <select class="form-control" id="state" formControlName="state" [(ngModel)]="student.State"
+              [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+              <option *ngFor="let state of student.States" [value]="state.ID">{{state.Name}}</option>
+            </select>
+            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+              <div *ngIf="f.state.errors.required">State is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input type="text" formControlName="mobile" class="form-control" [(ngModel)]="student.Mobile"
+              [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" numbersOnly />
+            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+              <div *ngIf="f.mobile.errors.required">Mobile is required</div>
+              <div *ngIf="f.mobile.errors.minlength">Mobile number must be at least 10 digit</div>
+              <div *ngIf="f.mobile.errors.maxlength">Mobile number should less than 10 digit</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" class="form-control" [(ngModel)]="student.Email"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email is invalid</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="photo">Photo</label>
+        <div class="row">
+          <div class="col">
+            <input #fileInput type="file" class="form-control" (change)="handleUpload($event)" />
+          </div>
+          <div class="col">
+            <input type="button" [disabled]="isUploadBtnDisable" class="btn btn-primary" (click)="onUpload()"
+              value="Upload!" />
+            <img *ngIf="imageUploadloading"
+              src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          </div>
+          <div class="col">
+            <img src="{{imageUploaderResponse.Path}}" *ngIf="imageUploaderResponse.IsFileUploaded" alt="teacher-image"
+              style="width:100%;height:60%;">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="loading" [disabled]="!addStudentForm.valid" class="btn btn-primary">Save</button>
+        <img *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <a [routerLink]="['/studentlist']" class="btn btn-link">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

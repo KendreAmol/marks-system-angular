@@ -1,0 +1,22 @@
+<div class="card text-center">
+  <div class="card-header">
+    <button type="button" class="float-right btn btn-primary" (click)="backNevigation()">Back</button>
+    <ul class="nav nav-tabs card-header-tabs">
+      <li *ngFor="let exam of exams" class="nav-item">
+        <a id="link1" class="nav-link" routerLinkActive="active" [routerLink]="exam.Name">{{exam.Value}} Report</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a id="link2" class="nav-link" routerLinkActive="active" routerLink="./sem1report">SEM1 Report</a>
+      </li>
+      <li class="nav-item">
+        <a id="link3" class="nav-link" routerLinkActive="active" routerLink="./test2report">TEST2 Report</a>
+      </li>
+      <li class="nav-item">
+        <a id="link4" class="nav-link" routerLinkActive="active" routerLink="./sem2report">SEM2 Report</a>
+      </li> -->
+    </ul>
+  </div>
+  <div class="card-body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

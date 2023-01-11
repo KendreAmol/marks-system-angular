@@ -1,0 +1,61 @@
+<form [formGroup]="subjectClassMappingForm">
+  <div class="card text-primary border border border-info">
+    <div class="card-header border border-info">
+      <h5>Add Subject Class Mapping</h5>
+    </div>
+    <div class="card-body border border-info">
+      <div class="row">
+        <div class="col">
+          <label for="class">Select Class</label>
+          <select class="form-control" formControlName="class" [(ngModel)]="subjectClassMapping.Name"
+            [ngClass]="{ 'is-invalid': submitted && f.class.errors }" (change)="onClassChange()">
+            <option *ngFor="let class of classes" [ngValue]="class.ID">{{class.Name}}</option>
+          </select>
+          <div *ngIf="submitted && f.class.errors" class="invalid-feedback">
+            <div *ngIf="f.class.errors.required">Class is required</div>
+          </div>
+
+          <div class="table-responsive" *ngIf="showMappingPannel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Subject Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <select class="form-control" formControlName="subject" [(ngModel)]="subjectClassMapping.Value"
+                      [ngClass]="{ 'is-invalid': submitted && f.subject.errors }">
+                      <option *ngFor="let subject of subjects" [ngValue]="subject">{{subject.Name}} ({{subject.Value}})</option>
+                    </select>
+                    <div *ngIf="submitted && f.subject.errors" class="invalid-feedback">
+                      <div *ngIf="f.subject.errors.required">Subject is required</div>
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="addMapping()">Add</button>
+                  </td>
+                </tr>
+                <tr *ngFor="let mapping of subjectClassMappings; let i = index">
+                  <td>
+                    {{mapping.Value.Name}}
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger fa fa-trash"
+                      (click)="deleteMapping(i)"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer border border-info" *ngIf="enblSaveMappingBtn">
+      <button type="button" class="btn btn-primary float-right" (click)="saveMappings()"><span
+          class="fa fa-save"></span> Save Mapping</button>
+    </div>
+  </div>
+</form>

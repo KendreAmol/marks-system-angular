@@ -1,0 +1,206 @@
+<div class="card">
+  <h5 class="card-header bg-primary text-white">Teacher Registration</h5>
+  <div class="card-body">
+    <form [formGroup]="addTeacherForm" (ngSubmit)="onSubmit()">
+
+      <div class="row" align="center">
+        <div class="col" *ngIf="!isImageUpload">
+          <img src="{{imagePath}}" class="rounded-circle" alt="teacher-image" style="width:150px;height:150px;">
+        </div>
+        <div class="col" *ngIf="isImageUpload">
+          <img src="{{imagePath}}" class="rounded-circle" alt="teacher-image" style="width:150px;height:150px;">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" formControlName="fname" [(ngModel)]="teacher.FName" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.fname.errors }" />
+            <div *ngIf="submitted && f.fname.errors" class="invalid-feedback">
+              <div *ngIf="f.fname.errors.required">Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="name">Last Name</label>
+            <input type="text" formControlName="lname" [(ngModel)]="teacher.LName" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.lname.errors }" />
+            <div *ngIf="submitted && f.lname.errors" class="invalid-feedback">
+              <div *ngIf="f.lname.errors.required">Name is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select class="form-control" id="gender" formControlName="gender" [(ngModel)]="teacher.Gender"
+              [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+              <option *ngFor="let gender of teacher.Genders" [value]="gender.ID">{{gender.Name}}</option>
+            </select>
+            <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+              <div *ngIf="f.gender.errors.required">Gender is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="dob">Date Of Birth</label>
+            <input type="text" formControlName="dob" [(ngModel)]="teacher.DOB"
+              [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" class="form-control"
+              #dp="bsDatepicker" bsDatepicker>
+            <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+              <div *ngIf="f.dob.errors.required">Date of birth is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea formControlName="address" [(ngModel)]="teacher.Address" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input type="text" formControlName="mobile" class="form-control" [(ngModel)]="teacher.Mobile"
+              [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" />
+            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+              <div *ngIf="f.mobile.errors.required">Mobile is required</div>
+              <div *ngIf="f.mobile.errors.minlength">Mobile number must be at least 10 digit</div>
+              <div *ngIf="f.mobile.errors.maxlength">Mobile number should less than 10 digit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" class="form-control" [(ngModel)]="teacher.Email"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email is invalid</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="highestQualification">Highest Qualification</label>
+            <input type="text" formControlName="highestQualification" class="form-control"
+              [(ngModel)]="teacher.HighestQualification"
+              [ngClass]="{ 'is-invalid': submitted && f.highestQualification.errors }" />
+            <div *ngIf="submitted && f.highestQualification.errors" class="invalid-feedback">
+              <div *ngIf="f.highestQualification.errors.required">Highest Qualification is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="knownLanguages">Known Languages</label>
+            <ng-multiselect-dropdown [placeholder]="'select languages'" formControlName="knownLanguages"
+              [data]="teacher.KnownLanguageOptions" [(ngModel)]="teacher.KnownLanguages"
+              (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelect($event)" [settings]="dropdownSettings"
+              [ngClass]="{ 'is-invalid': submitted && f.knownLanguages.errors }">
+            </ng-multiselect-dropdown>
+            <div *ngIf="submitted && f.knownLanguages.errors" class="invalid-feedback">
+              <div *ngIf="f.knownLanguages.errors.required">Known Languages are required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="isEnglishFluencyControlEnabled">
+          <div class="form-group">
+            <label for="knownLanguages">English Fluency</label>
+            <ng-multiselect-dropdown [placeholder]="'select'" formControlName="englishLanguage"
+              [data]="teacher.EnglishLanguageOptions" [(ngModel)]="teacher.EnglishLanguage"
+              [settings]="dropdownSettings" [ngClass]="{ 'is-invalid': submitted && f.englishLanguage.errors }">
+            </ng-multiselect-dropdown>
+            <div *ngIf="submitted && f.englishLanguage.errors" class="invalid-feedback">
+              <div *ngIf="f.englishLanguage.errors.required">English Languages are required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <button *ngIf="!isAddEducationDetails" type="button" (click)="addEducationDetails()"
+              class="btn btn-primary">Add Education Details</button>
+
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="isAddEducationDetails">
+        <div class="col">
+          <label *ngIf="isAddEducationDetails">Education Details</label>
+          <app-education-details (saveEducationDetailsBtn_Click)="childAddEducationDetailsBtn_Click($event)">
+          </app-education-details>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            Do you have Experience ?
+            <div class="radio-item" [ngClass]="{ 'is-invalid': submitted && f.isExperience.errors }">
+              <input type="radio" id="ritema" formControlName="isExperience" value="yes" [(ngModel)]="teacher.IsExperience">
+              <label for="ritema">Yes</label>
+            </div>
+
+            <div class="radio-item" [ngClass]="{ 'is-invalid': submitted && f.isExperience.errors }">
+              <input type="radio" id="ritemb" formControlName="isExperience" value="no" [(ngModel)]="teacher.IsExperience">
+              <label for="ritemb">No</label>
+            </div>
+
+            <div *ngIf="submitted && f.isExperience.errors" class="invalid-feedback">
+              <div *ngIf="f.isExperience.errors.required">Experience is required</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="teacher.IsExperience ==='yes'">
+        <div class="col">
+          <label *ngIf="isAddEducationDetails">Experience Details</label>
+          <app-experience-details (addExperienceDetailsBtn_Click)="childAddExperienceDetailsBtn_Click($event)"></app-experience-details>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="photo">Photo</label>
+        <div class="row">
+          <div class="col">
+            <input #fileInput type="file" class="form-control" (change)="handleUpload($event)" />
+          </div>
+          <div class="col">
+            <input type="button" [disabled]="isUploadBtnDisable" class="btn btn-primary" (click)="onUpload()"
+              value="Upload!" />
+            <img *ngIf="imageUploadloading"
+              src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Save</button>
+        <img *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <a [routerLink]="['/teacherlist']" class="btn btn-link">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

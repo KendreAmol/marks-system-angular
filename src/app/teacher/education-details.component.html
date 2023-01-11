@@ -1,0 +1,69 @@
+<form [formGroup]="educationDetailsForm">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Qualification/Degree</th>
+        <th>Institution/Board</th>
+        <th>Percentage</th>
+        <th>Year of Passing</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <input type="text" formControlName="qualification" class="form-control"
+            [(ngModel)]="educationDetails.Qualification"
+            [ngClass]="{ 'is-invalid': submitted && f.qualification.errors }" />
+          <div *ngIf="submitted && f.qualification.errors" class="invalid-feedback">
+            <div *ngIf="f.qualification.errors.required">Qualification is required</div>
+          </div>
+        </td>
+        <td>
+          <input type="text" formControlName="board" class="form-control" [(ngModel)]="educationDetails.Board"
+            [ngClass]="{ 'is-invalid': submitted && f.board.errors }" />
+          <div *ngIf="submitted && f.board.errors" class="invalid-feedback">
+            <div *ngIf="f.board.errors.required">Institution/Board is required</div>
+          </div>
+        </td>
+        <td>
+          <input type="text" formControlName="percentage" class="form-control" [(ngModel)]="educationDetails.Percentage"
+            [ngClass]="{ 'is-invalid': submitted && f.percentage.errors }" />
+          <div *ngIf="submitted && f.percentage.errors" class="invalid-feedback">
+            <div *ngIf="f.percentage.errors.required">Percentage is required</div>
+          </div>
+        </td>
+        <td>
+          <input type="text" formControlName="yearOfPassing" class="form-control"
+            [(ngModel)]="educationDetails.YearOfPassing"
+            [ngClass]="{ 'is-invalid': submitted && f.yearOfPassing.errors }" />
+          <div *ngIf="submitted && f.yearOfPassing.errors" class="invalid-feedback">
+            <div *ngIf="f.yearOfPassing.errors.required">Year Of Passing is required</div>
+          </div>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="addEducationDetails()">Add</button>
+        </td>
+      </tr>
+      <tr *ngFor="let details of listEducationDetails; let i = index">
+        <td>
+          {{details.Qualification}}
+        </td>
+        <td>
+          {{details.Board}}
+        </td>
+        <td>
+          {{details.Percentage}}
+        </td>
+        <td>
+          {{details.YearOfPassing}}
+        </td>
+        <td>
+          <button type="button" class="btn btn-warning fa fa-edit" (click)="editEducationDetails(i)"></button>
+          &nbsp;
+          <button class="btn btn-danger fa fa-trash" type="button" (click)="deleteEducationDetails(i)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

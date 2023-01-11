@@ -1,0 +1,53 @@
+<div class="card border border-info">
+  <div class="card-header bg-primary text-white">
+    <div class="row">
+      <div class="col">
+        <h5>All Registered Teachers</h5>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-success fa fa-user-plus float-right" (click)="addTeacher()"> Add New
+          Teacher</button>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="card-body border border-info">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="bg-success text-black">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-primary">
+          <tr *ngFor="let teacher of teachers">
+            <td><img [src]="teacher.ImagePath" class="rounded-circle" alt="teacher-image"
+                style="width:70px;height:70px;">
+            </td>
+            <td>{{teacher.FName}} {{teacher.LName}}</td>
+            <td>{{teacher.Address}}</td>
+            <td>{{teacher.Email}}</td>
+            <td>{{teacher.Mobile}}</td>
+            <td>
+              <button type="button" class="btn btn-success fa fa-eye" (click)="viewTeacher(teacher.ID)"> View</button>
+              &nbsp;
+              <button type="button" class="btn btn-warning fa fa-edit" (click)="editTeacher(teacher.ID)"> Edit</button>
+              &nbsp;
+              <button type="button" class="btn btn-danger fa fa-trash" (click)="deleteTeacher(teacher.ID)">
+                Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="teachers.length === 0">
+            <td colspan="5">No Records Found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

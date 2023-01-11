@@ -1,0 +1,97 @@
+<form [formGroup]="examConfigurationForm">
+  <div class="card text-primary border border border-info">
+    <div class="card-header border border-info">
+      <div class="row">
+        <div class="col">
+          <label for="exam">Select Exam</label>
+          <select class="form-control" formControlName="exam" [(ngModel)]="examConfiguration.Exam"
+            [ngClass]="{ 'is-invalid': submitted && f.exam.errors }" (change)="onExamChange()">
+            <option *ngFor="let exam of exams" [ngValue]="exam">{{exam.Value}}</option>
+          </select>
+          <div *ngIf="submitted && f.exam.errors" class="invalid-feedback">
+            <div *ngIf="f.exam.errors.required">Exam is required</div>
+          </div>
+        </div>
+        <div class="col">
+          <label for="class">Select Class</label>
+          <select class="form-control" formControlName="class" [(ngModel)]="examConfiguration.Class"
+            [ngClass]="{ 'is-invalid': submitted && f.class.errors }" (change)="onClassChange()">
+            <option *ngFor="let class of classes" [ngValue]="class">{{class.Name}}</option>
+          </select>
+          <div *ngIf="submitted && f.class.errors" class="invalid-feedback">
+            <div *ngIf="f.class.errors.required">Class is required</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="card-body border border-info" *ngIf="showCardBody">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Subject Name</th>
+              <th>Total Mark</th>
+              <th>Passing Mark</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <select class="form-control" formControlName="subject" [(ngModel)]="examConfiguration.Subject"
+                  [ngClass]="{ 'is-invalid': submitted && f.subject.errors }" [compareWith]="compareFn">
+                  <option *ngFor="let subject of subjects" [ngValue]="subject">{{subject.Name}}</option>
+                </select>
+                <div *ngIf="submitted && f.subject.errors" class="invalid-feedback">
+                  <div *ngIf="f.subject.errors.required">Subject is required</div>
+                </div>
+              </td>
+              <td>
+                <input type="text" formControlName="totalMark" class="form-control"
+                  [(ngModel)]="examConfiguration.TotalMark"
+                  [ngClass]="{ 'is-invalid': submitted && f.totalMark.errors }" />
+                <div *ngIf="submitted && f.totalMark.errors" class="invalid-feedback">
+                  <div *ngIf="f.totalMark.errors.required">Total Mark is required</div>
+                </div>
+              </td>
+              <td>
+                <input type="text" formControlName="passingMark" class="form-control"
+                  [(ngModel)]="examConfiguration.PassingMark"
+                  [ngClass]="{ 'is-invalid': submitted && f.passingMark.errors }" />
+                <div *ngIf="submitted && f.passingMark.errors" class="invalid-feedback">
+                  <div *ngIf="f.passingMark.errors.required">Year Of Passing is required</div>
+                </div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="addExamConfiguration()">Add</button>
+              </td>
+            </tr>
+            <tr *ngFor="let configuration of listExamConfiguration; let i = index">
+              <td>
+                {{configuration.Subject.Name}}
+              </td>
+              <td>
+                {{configuration.TotalMark}}
+              </td>
+              <td>
+                {{configuration.PassingMark}}
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning fa fa-edit" (click)="editExamConfiguration(i)"></button>
+                &nbsp;
+                <button type="button" class="btn btn-danger fa fa-trash" (click)="deleteExamConfiguration(i)"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer border border-info" *ngIf="enblSaveExamConfigBtn">
+      <button type="button" class="btn btn-primary float-right" (click)="saveExamConfiguration()">
+        <span class="fa fa-save"></span> Save Exam Configuration
+      </button>
+    </div>
+  </div>
+</form>

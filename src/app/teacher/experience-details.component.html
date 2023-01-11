@@ -1,0 +1,82 @@
+<form [formGroup]="experienceDetailsForm">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th>Organization</th>
+        <th>Organization Address</th>
+        <th>Designation</th>
+        <th>Reason of Change</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <input type="text" formControlName="period" class="form-control" [(ngModel)]="experienceDetails.Period"
+            [ngClass]="{ 'is-invalid': submitted && f.period.errors }" />
+          <div *ngIf="submitted && f.period.errors" class="invalid-feedback">
+            <div *ngIf="f.period.errors.required">Period is required</div>
+          </div>
+        </td>
+        <td>
+          <input type="text" formControlName="organization" class="form-control"
+            [(ngModel)]="experienceDetails.Organization"
+            [ngClass]="{ 'is-invalid': submitted && f.organization.errors }" />
+          <div *ngIf="submitted && f.organization.errors" class="invalid-feedback">
+            <div *ngIf="f.organization.errors.required">Organization is required</div>
+          </div>
+        </td>
+        <td>
+          <input type="text" formControlName="organizationAddress" class="form-control"
+            [(ngModel)]="experienceDetails.OrganizationAddress"
+            [ngClass]="{ 'is-invalid': submitted && f.organizationAddress.errors }" />
+          <div *ngIf="submitted && f.organizationAddress.errors" class="invalid-feedback">
+            <div *ngIf="f.organizationAddress.errors.required">Organization Address is required</div>
+          </div>
+        </td>
+        <td>
+          <input type="text" formControlName="designation" class="form-control"
+            [(ngModel)]="experienceDetails.Designation"
+            [ngClass]="{ 'is-invalid': submitted && f.designation.errors }" />
+          <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+            <div *ngIf="f.designation.errors.required">Designation is required</div>
+          </div>
+        </td>
+        <td>
+          <input type="text" formControlName="reasonOfChange" class="form-control"
+            [(ngModel)]="experienceDetails.ReasonOfChange"
+            [ngClass]="{ 'is-invalid': submitted && f.reasonOfChange.errors }" />
+          <div *ngIf="submitted && f.reasonOfChange.errors" class="invalid-feedback">
+            <div *ngIf="f.reasonOfChange.errors.required">Reason of Change is required</div>
+          </div>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="addExperienceDetails()">Add</button>
+        </td>
+      </tr>
+      <tr *ngFor="let details of listExperienceDetails; let i = index">
+        <td>
+          {{details.Period}}
+        </td>
+        <td>
+          {{details.Organization}}
+        </td>
+        <td>
+          {{details.OrganizationAddress}}
+        </td>
+        <td>
+          {{details.Designation}}
+        </td>
+        <td>
+          {{details.ReasonOfChange}}
+        </td>
+        <td>
+          <button type="button" class="btn btn-warning fa fa-edit" (click)="editExperienceDetails(i)"></button>
+          &nbsp;
+          <button class="btn btn-danger fa fa-trash" type="button" (click)="deleteExperienceDetails(i)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

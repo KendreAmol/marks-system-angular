@@ -1,0 +1,9 @@
+<div class="card">
+  <img src="{{teacherDetails.ImagePath}}" alt="teacher-image" style="width:100%">
+  <h1>{{teacherDetails.FName}}</h1>
+  <p class="title">{{teacherDetails.Mobile}}</p>
+  <p>{{teacherDetails.Address}}</p>
+  <p><button (click)="openConfirmationDialog(teacherDetails.ID)" type="button">Delete</button></p>
+
+  <p><button [routerLink]="['/teacherlist']">Back</button></p>
+</div>

@@ -1,0 +1,38 @@
+<!-- show loader bar for each http request -->
+<ng-progress #progressBar [spinner]="false" (started)="onStarted()" (completed)="onCompleted()"></ng-progress>
+<!-- main app container -->
+<div [ngStyle]="{'backgroundColor':openNavBar ? 'rgba(0,0,0,0.4)' : 'white' }">
+    <div id="mySidenav" [ngStyle]="{'width':openNavBar ? '250px' : '0' }" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+        <a [routerLink]="['/dashboard']" class="nav-link"><span class="fa fa-dashboard"></span> Dashboard</a>
+        <a [routerLink]="['/teacherlist']" class="nav-link"><span class="fa fa-user-circle-o"></span> Teacher</a>
+        <a [routerLink]="['/studentlist']" class="nav-link"><span class="fa fa-user-circle-o"></span> Student</a>
+        <div class="dropdown">
+            <button class="dropbtn"><span class="fa fa-book"></span> Master</button>
+            <div class="dropdown-content" style="margin-left: 45%;">
+                <a class="nav-link" [routerLink]="['/classmaster']"><span class="fa fa-home"></span> Class</a>
+                <a class="nav-link" [routerLink]="['/subjectmaster']"><span class="fa fa-book"></span> Subject</a>
+                <a class="nav-link" [routerLink]="['/subjectclasmapping']"><span class="fa fa-book"></span> Subject Mapping</a>
+            </div>
+        </div>
+        <a>_______________________</a>
+        <a class="nav-link" [routerLink]="['/entermarks']"><span class="fa fa-list"></span> Marks</a>
+        <a class="nav-link" [routerLink]="['/examsetup']"><span class="fa fa-gear"></span> Exam Configuration</a>
+        <a>_______________________</a>
+        <a class="nav-link" [routerLink]="['/report']"><span class="fa fa-line-chart"></span> Report</a>
+
+    </div>
+
+    <div id="main" [ngStyle]="{'marginLeft':openNavBar ? '250px' : '0' }">
+        <span *ngIf="!openNavBar" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776;</span>
+        <div class="card border border-info">
+            <div class="card-header border border-info">
+                <button (click)="logout()" class="btn btn-primary float-right">
+                    <span class="fa fa-sign-out"></span> {{isUserLogedIn? 'Logout':'Login'}}
+                </button>
+            </div>
+            <div class="card-body border border-info">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>

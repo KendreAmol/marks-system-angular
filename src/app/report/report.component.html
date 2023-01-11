@@ -1,0 +1,41 @@
+<div class="card border border-info">
+  <div class="card-header border border-info">
+    <h5>Report</h5>
+  </div>
+  <div class="card-body border border-info">
+    <div class="row">
+      <div class="col">
+        <label for="class">Select Class</label>
+        <select class="form-control" [(ngModel)]="selectedClass" (change)="onClassChange()">
+          <option *ngFor="let class of classes" [ngValue]="class.ID">{{class.Name}}</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card-body border border-info" *ngIf="showStudentPanel">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students;">
+            <td>
+              {{student.Name}}
+            </td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="showReportCard(student.ID)">
+                <span class="fa fa-eye"></span> Generate Report Card
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

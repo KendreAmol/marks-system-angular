@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col">
+
+  </div>
+  <div class="col">
+
+  </div>
+</div>
+
+<div class="card border border-info">
+  <div class="card-header bg-primary text-white border border-info">
+    <div class="row">
+      <div class="col">
+        <h5>All Registered Students</h5>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-success fa fa-user-plus float-right" (click)="addStudent()"> Add New
+          Student</button>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="card-body border border-info">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="bg-success text-black">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Class</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-primary">
+          <tr *ngFor="let student of students">
+            <td><img [src]="student.ImagePath" class="rounded-circle" alt="student-image"
+                style="width:70px;height:70px;"></td>
+            <td>{{student.FirstName}} {{student.MiddleName}} {{student.LastName}}</td>
+            <td>{{student.Gender.Name}}</td>
+            <td>{{student.Class.Name}}</td>
+            <td>{{student.Mobile}}</td>
+            <td>{{student.Email}}</td>
+            <td>
+              <button type="button" class="btn btn-success fa fa-eye" (click)="viewStudent(student.ID)"> View</button>
+              &nbsp;
+              <button type="button" class="btn btn-warning fa fa-edit" (click)="editStudent(student.ID)"> Edit</button>
+              &nbsp;
+              <button type="button" class="btn btn-danger fa fa-trash" (click)="deleteStudent(student.ID)">
+                Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="students.length === 0">
+            <td colspan="5">No Records Found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

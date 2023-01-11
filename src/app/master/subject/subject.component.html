@@ -1,0 +1,64 @@
+<form [formGroup]="subjectForm">
+  <div class="card text-primary border border border-info">
+    <div class="card-header border border-info">
+        <h5>Add Subject</h5>
+    </div>
+    <div class="card-body border border-info">
+      <div style="color: red">
+        <p><b>Note:</b> Duplicate subject name is now allowed.
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Subject Name</th>
+              <th>Mark Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" formControlName="name" class="form-control" [(ngModel)]="subject.Name"
+                  [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">Subject Name is required</div>
+                </div>
+              </td>
+              <td>
+                <select class="form-control" formControlName="markType" [(ngModel)]="subject.Value"
+                  [ngClass]="{ 'is-invalid': submitted && f.markType.errors }">
+                  <option *ngFor="let markType of markTypes" [ngValue]="markType.Name">{{markType.Name}}</option>
+                </select>
+                <div *ngIf="submitted && f.markType.errors" class="invalid-feedback">
+                  <div *ngIf="f.markType.errors.required">Mark Type is required</div>
+                </div>
+              </td>
+
+              <td>
+                <button type="button" class="btn btn-primary" (click)="addSubject()">Add</button>
+              </td>
+            </tr>
+            <tr *ngFor="let subject of subjects; let i = index">
+              <td>
+                {{subject.Name}}
+              </td>
+              <td>
+                {{subject.Value}}
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning fa fa-edit" (click)="editSubject(i)"></button>
+                &nbsp;
+                <button type="button" class="btn btn-danger fa fa-trash" (click)="deleteSubject(i)"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer border border-info" *ngIf="enblSaveSubjectBtn">
+      <button type="button" class="btn btn-primary float-right" (click)="saveSubjects()"><span
+          class="fa fa-save"></span> Save Subjects</button>
+    </div>
+  </div>
+</form>

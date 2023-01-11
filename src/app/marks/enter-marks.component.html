@@ -1,0 +1,38 @@
+<div class="card border border-info">
+  <div class="card-header border border-info">
+    <div class="row">
+      <div class="col">
+        <label for="class">Select Class</label>
+        <select class="form-control border border-primary" (change)="classChange()" [(ngModel)]="selectedClassID">
+          <option *ngFor="let class of classes" [value]="class.ID">{{class.Name}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="exam">Select Exam</label>
+        <select class="form-control border border-primary" (change)="examChange()" [(ngModel)]="selectedExamID"
+          [disabled]="enableExamDD">
+          <option *ngFor="let exam of exams" [value]="exam.ID">{{exam.Value}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="card-body border border-info" *ngIf="showGrid">
+    <ag-grid-angular #agGrid style="width:100%; height:500px;" class="ag-theme-balham" [gridOptions]="gridOption">
+    </ag-grid-angular>
+  </div>
+  <div class="card-footer border border-info" *ngIf="showGrid">
+    <div class="row">
+      <div class="col">
+        <div style="color: red">
+          <b>Note:</b><br />
+            1. Enter integer number marks only. Don't enter decimals.<br />
+            2. Enter grade in PT and ICT column.<br />
+            3. After enter marks in grid cell, hit enter to validate entered mark.<br />
+        </div>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary float-right" (click)="saveMarksClick()">Save Marks</button>
+      </div>
+    </div>
+  </div>
+</div>
